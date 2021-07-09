@@ -19,7 +19,10 @@ requirements:
   host:
     - pip
     - python >=3.6
-
+    - jupyter-packaging >=0.7,<1
+    - jupyter_server
+    - setuptools
+    - wheel
   run:
     - python >=3.6
     - babel
@@ -28,7 +31,7 @@ requirements:
     - jinja2 >=2.10
     - packaging
     - requests
-    - jupyter_server >=1.1.0,<2.0.0
+    - jupyter_server >=1.4,<2
 
 test:
   requires:
@@ -41,8 +44,11 @@ test:
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
   license: BSD-3-Clause
+  license_family: BSD
   license_file: LICENSE
   summary: A set of server components for JupyterLab and JupyterLab like applications.
+  dev_url: https://github.com/jupyterlab/jupyterlab_server
+  doc_url: https://jupyterlab-server.readthedocs.io/en/stable/
 
 extra:
   recipe-maintainers:
