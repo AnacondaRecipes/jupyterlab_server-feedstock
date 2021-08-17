@@ -26,6 +26,7 @@ requirements:
   run:
     - python >=3.6
     - babel
+    - entrypoints>=0.2.2
     - json5
     - jsonschema >=3.0.1
     - jinja2 >=2.10
