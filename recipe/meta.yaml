@@ -1,5 +1,5 @@
-{% set version = "2.6.2" %}
-{% set hash = "6dc6e7d26600d110b862acbfaa4d1a2c5e86781008d139213896d96178c3accd" %}
+{% set version = "2.7.1" %}
+{% set hash = "182a30bc9aee98fa013b9ac22a854202c8a42c9d480304008e762c249f6a80df" %}
 
 package:
   name: jupyterlab_server
@@ -26,6 +26,7 @@ requirements:
   run:
     - python >=3.6
     - babel
+    - entrypoints >=0.2.2
     - json5
     - jsonschema >=3.0.1
     - jinja2 >=2.10
