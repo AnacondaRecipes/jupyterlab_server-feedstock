@@ -45,8 +45,6 @@ test:
     - jupyterlab_server
   commands:
     - python -m pip check
-  downstreams:
-    - jupyterlab
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
