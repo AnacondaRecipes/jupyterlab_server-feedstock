@@ -27,9 +27,9 @@ requirements:
     - python >=3.6
     - babel
     - entrypoints >=0.2.2
+    - jinja2 >=2.10
     - json5
     - jsonschema >=3.0.1
-    - jinja2 >=2.10
     - jupyter_server >=1.4,<2
     - packaging
     - requests
@@ -37,11 +37,12 @@ requirements:
 test:
   requires:
     - pip
-    - python <3.10
   imports:
     - jupyterlab_server
   commands:
     - python -m pip check
+  downstreams:
+    - jupyterlab
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
