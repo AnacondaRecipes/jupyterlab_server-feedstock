@@ -42,7 +42,9 @@ test:
   commands:
     - python -m pip check
   downstreams:
-    - jupyterlab
+    # Additional testing for downstream package jupyterlab
+    # Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
+    - jupyterlab  # [not (s390x or aarch64 or arm64)]
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
