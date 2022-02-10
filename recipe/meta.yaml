@@ -1,5 +1,5 @@
-{% set version = "2.10.2" %}
-{% set hash = "bf1ec9e49d4e26f14d70055cc293b3f8ec8410f95a4d5b4bd55c442d9b8b266c" %}
+{% set version = "2.10.3" %}
+{% set hash = "3fb84a5813d6d836ceda773fb2d4e9ef3c7944dbc1b45a8d59d98641a80de80a" %}
 
 package:
   name: jupyterlab_server
@@ -27,9 +27,9 @@ requirements:
     - python >=3.6
     - babel
     - entrypoints >=0.2.2
+    - jinja2 >=2.10
     - json5
     - jsonschema >=3.0.1
-    - jinja2 >=2.10
     - jupyter_server >=1.4,<2
     - packaging
     - requests
@@ -37,11 +37,14 @@ requirements:
 test:
   requires:
     - pip
-    - python <3.10
   imports:
     - jupyterlab_server
   commands:
     - python -m pip check
+  downstreams:
+    # Additional testing for downstream package jupyterlab
+    # Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
+    - jupyterlab  # [not (s390x or aarch64 or arm64)]
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
