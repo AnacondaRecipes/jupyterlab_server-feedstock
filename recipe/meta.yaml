@@ -43,9 +43,10 @@ test:
     - python -m pip check
   downstreams:
     # Additional testing for downstream package jupyterlab
-    # Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
-    # And skip ppc64le: npm dependencies failed to install
-    - jupyterlab  # [not (s390x or aarch64 or arm64 or ppc64le)]
+    # 1. Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
+    # 2. Skip ppc64le: npm dependencies failed to install
+    # 3. Skip win: false positive jupyter-server 1.13.5 has requirement pywinpty<2 but you have pywinpty 2.0.2.
+    - jupyterlab  # [not (s390x or aarch64 or arm64 or ppc64le or win)]
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
