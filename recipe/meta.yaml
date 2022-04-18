@@ -12,7 +12,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<37]
+  skip: True  # [py<37 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
@@ -44,7 +44,8 @@ test:
   downstreams:
     # Additional testing for downstream package jupyterlab
     # Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
-    - jupyterlab  # [not (s390x or aarch64 or arm64)]
+    # And skip ppc64le: npm dependencies failed to install
+    - jupyterlab  # [not (s390x or aarch64 or arm64 or ppc64le)]
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
