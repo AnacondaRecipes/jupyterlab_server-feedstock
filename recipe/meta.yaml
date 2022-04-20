@@ -1,5 +1,5 @@
-{% set version = "2.10.3" %}
-{% set hash = "3fb84a5813d6d836ceda773fb2d4e9ef3c7944dbc1b45a8d59d98641a80de80a" %}
+{% set version = "2.12.0" %}
+{% set hash = "00e0f4b4c399f55938323ea10cf92d915288fe12753e35d1069f6ca08b72abbf" %}
 
 package:
   name: jupyterlab_server
@@ -11,8 +11,8 @@ source:
   sha256: {{ hash }}
 
 build:
-  number: 1
-  noarch: python
+  number: 0
+  skip: True  # [py<37 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
@@ -24,13 +24,13 @@ requirements:
     - setuptools
     - wheel
   run:
-    - python >=3.6
+    - python
     - babel
     - entrypoints >=0.2.2
-    - jinja2 >=2.10
+    - jinja2 >=3.0.3
     - json5
     - jsonschema >=3.0.1
-    - jupyter_server >=1.4,<2
+    - jupyter_server >=1.8,<2
     - packaging
     - requests
 
@@ -40,11 +40,13 @@ test:
   imports:
     - jupyterlab_server
   commands:
-    - python -m pip check
+    # Skip win: false positive jupyter-server 1.13.5 has requirement pywinpty<2 but you have pywinpty 2.0.2.
+    - python -m pip check  # [not win]
   downstreams:
     # Additional testing for downstream package jupyterlab
-    # Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
-    - jupyterlab  # [not (s390x or aarch64 or arm64)]
+    # 1. Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
+    # 2. Skip ppc64le: npm dependencies failed to install
+    - jupyterlab  # [not (s390x or aarch64 or arm64 or ppc64le)]
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
