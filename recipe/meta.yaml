@@ -21,11 +21,11 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - hatchling >=0.25  # added for testing
+    - hatchling >=0.25
   run:
     - python
     - babel
-    - importlib-metadata >=3.6  # added for testing
+    - importlib-metadata >=3.6
     - jinja2 >=3.0.3
     - json5
     - jsonschema >=3.0.1
