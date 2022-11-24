@@ -65,6 +65,3 @@ extra:
     - SylvainCorlay
     - bollwyvl
     - jtpio
-
-skip-lints:
-  - missing_pip_check
