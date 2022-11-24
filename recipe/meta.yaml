@@ -1,5 +1,5 @@
-{% set version = "2.15.2" %}
-{% set hash = "c0bcdd4606e640e6f16d236ceac55336dc8bf98cbbce067af27524ccc2fb2640" %}
+{% set version = "2.16.3" %}
+{% set hash = "635a0b176a901f19351c02221a124e59317c476f511200409b7d867e8b2905c3" %}
 
 package:
   name: jupyterlab_server
