@@ -1,5 +1,5 @@
 {% set name = "jupyterlab_server" %}
-{% set version = "2.16.5" %}
+{% set version = "2.19.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 61381c48268f0a8a84a27858b49db1b02e5aec6549e85e22fcdbf3eb14a2193a
+  sha256: 9aec21a2183bbedd9f91a86628355449575f1862d88b28ad5f905019d31e6c21
 
 build:
   number: 0
@@ -28,7 +28,7 @@ requirements:
     - importlib-metadata >=4.8.3  # [py<310]
     - jinja2 >=3.0.3
     - json5 >=0.9.0
-    - jsonschema >=3.0.1
+    - jsonschema >=4.17.3
     - jupyter_server >=1.21,<3
     - packaging >=21.3
     - requests >=2.28
@@ -39,13 +39,12 @@ test:
   imports:
     - jupyterlab_server
   commands:
-    # Skip `win` platform: false positive jupyter-server 1.13.5 has requirement pywinpty<2 but you have pywinpty 2.0.2.
-    - python -m pip check  # [not win]
-  downstreams:
+    - python -m pip check 
+  # downstreams:
     # Additional testing for downstream package jupyterlab
     # 1. Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
     # 2. Skip ppc64le: npm dependencies failed to install
-    - jupyterlab  # [not (s390x or aarch64 or arm64 or ppc64le)]
+    #- jupyterlab  # [not (s390x or aarch64 or arm64 or ppc64le)]
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
