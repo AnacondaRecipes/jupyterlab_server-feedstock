@@ -38,7 +38,6 @@ test:
   imports:
     - jupyterlab_server
   commands:
-    - pip check
     - python -m pip check 
   # downstreams:
     # Additional testing for downstream package jupyterlab
