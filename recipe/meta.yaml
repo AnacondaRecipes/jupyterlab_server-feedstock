@@ -1,5 +1,5 @@
 {% set name = "jupyterlab_server" %}
-{% set version = "2.21.0" %}
+{% set version = "2.22.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b4f5b48eaae1be83e2fd6fb77ac49d9b639be4ca4bd2e05b5368d29632a93725
+  sha256: 0f9f6752b0c534a7b22a6542b984fa6a2c18ab4d4e0a4c79f191138506a9a75f
 
 build:
   number: 0
-  skip: true  # [py<37]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vvv
+  # jupyterlab_server isn't available on s390x yet.
+  skip: true  # [py<37 or s390x]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
 
 requirements:
   host:
@@ -52,13 +53,19 @@ about:
   license_file: LICENSE
   summary: A set of server components for JupyterLab and JupyterLab like applications.
   description: |
-    JupyterLab Server sits between JupyterLab and Jupyter Server, and provides a set of REST API handlers 
-    and utilities that are used by JupyterLab. It is a separate project in order to accommodate creating 
-    JupyterLab-like applications from a more limited scope.
+    JupyterLab Server sits between JupyterLab and Jupyter Server, and provides a
+    set of REST API handlers and utilities that are used by JupyterLab. It is a
+    separate project in order to accommodate creating JupyterLab-like
+    applications from a more limited scope.
   dev_url: https://github.com/jupyterlab/jupyterlab_server
   doc_url: https://jupyterlab-server.readthedocs.io
 
 extra:
+  skip-lints:
+    # `packaging` is required, noted as a dependency by upstream:
+    # https://github.com/jupyterlab/jupyterlab_server/blob/v2.22.0/pyproject.toml#L36
+    # It is worth noting that the project still builds without it.
+    - python_build_tool_in_run
   recipe-maintainers:
     - jasongrout
     - blink1073
