@@ -1,5 +1,5 @@
 {% set name = "jupyterlab_server" %}
-{% set version = "2.22.0" %}
+{% set version = "2.25.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,31 +7,29 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0f9f6752b0c534a7b22a6542b984fa6a2c18ab4d4e0a4c79f191138506a9a75f
+  sha256: 6491283b0000698eae1a38c48507930560dfcf7461aea0015368698aab34dd9c
 
 build:
   number: 0
   # jupyterlab_server isn't available on s390x yet.
-  skip: true  # [py<37 or s390x]
+  skip: true  # [py<38 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
 
 requirements:
   host:
     - python
     - pip
-    - hatchling 1.8
-    - setuptools
-    - wheel
+    - hatchling >=1.7
   run:
     - python
     - babel >=2.10
     - importlib-metadata >=4.8.3  # [py<310]
     - jinja2 >=3.0.3
     - json5 >=0.9.0
-    - jsonschema >=4.17.3
+    - jsonschema >=4.18.0
     - jupyter_server >=1.21,<3
     - packaging >=21.3
-    - requests >=2.28
+    - requests >=2.31
 
 test:
   requires:
@@ -42,9 +40,7 @@ test:
     - python -m pip check 
   # downstreams:
     # Additional testing for downstream package jupyterlab
-    # 1. Skip s390x and arm64 because nodejs >=14,<15 currently isn't available.
-    # 2. Skip ppc64le: npm dependencies failed to install
-    #- jupyterlab  # [not (s390x or aarch64 or arm64 or ppc64le)]
+    #- jupyterlab
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
