@@ -1,5 +1,5 @@
 {% set name = "jupyterlab_server" %}
-{% set version = "2.25.1" %}
+{% set version = "2.27.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6491283b0000698eae1a38c48507930560dfcf7461aea0015368698aab34dd9c
+  sha256: eb36caca59e74471988f0ae25c77945610b887f777255aa21f8065def9e51ed4
 
 build:
   number: 0
@@ -32,15 +32,17 @@ requirements:
     - requests >=2.31
 
 test:
-  requires:
-    - pip
   imports:
     - jupyterlab_server
+  requires:
+    - pip
   commands:
-    - python -m pip check 
+    - pip check
   # downstreams:
-    # Additional testing for downstream package jupyterlab
-    #- jupyterlab
+  #   # Additional testing for downstream packages
+  #   - jupyterlab 4.0.11
+  #   - notebook 7.0.8
+  #   - voila 0.5.7
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
