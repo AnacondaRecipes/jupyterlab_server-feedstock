@@ -1,19 +1,18 @@
 {% set name = "jupyterlab_server" %}
-{% set version = "2.27.3" %}
+{% set version = "2.28.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: eb36caca59e74471988f0ae25c77945610b887f777255aa21f8065def9e51ed4
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 35baa81898b15f93573e2deca50d11ac0ae407ebb688299d3a5213265033712c
 
 build:
   number: 0
-  # jupyterlab_server isn't available on s390x yet.
-  skip: true  # [py<38 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
+  skip: true  # [py<38]
 
 requirements:
   host:
@@ -33,18 +32,33 @@ requirements:
   run_constrained:
     - openapi-core >=0.18.0,<0.19.0
 
+# E   ModuleNotFoundError: No module named 'openapi_core'
+{% set ignore_tests = " --ignore=tests/test_translation_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_themes_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_labapp.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_settings_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_workspaces_api.py" %}
+# E   ModuleNotFoundError: No module named 'requests_mock'
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_listings_api.py" %}
 test:
+  source_files:
+    - tests
   imports:
     - jupyterlab_server
-  requires:
-    - pip
   commands:
     - pip check
+    - pytest -v tests {{ ignore_tests }}
+  requires:
+    - pip
+    - pytest >=7
+    - pytest-jupyter >=0.6.2
+    - mock
+    - strict-rfc3339
   # downstreams:
   #   # Additional testing for downstream packages
-  #   - jupyterlab 4.0.11
-  #   - notebook 7.0.8
-  #   - voila 0.5.7
+  #   - jupyterlab 4.4.7
+  #   - notebook 7.4.5
+  #   - voila 0.5.8
 
 about:
   home: https://github.com/jupyterlab/jupyterlab_server
@@ -63,7 +77,7 @@ about:
 extra:
   skip-lints:
     # `packaging` is required, noted as a dependency by upstream:
-    # https://github.com/jupyterlab/jupyterlab_server/blob/v2.22.0/pyproject.toml#L36
+    # https://github.com/jupyterlab/jupyterlab_server/blob/v2.28.0/pyproject.toml#L36
     # It is worth noting that the project still builds without it.
     - python_build_tool_in_run
   recipe-maintainers:
