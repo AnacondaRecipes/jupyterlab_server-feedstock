@@ -10,7 +10,7 @@ source:
   sha256: 35baa81898b15f93573e2deca50d11ac0ae407ebb688299d3a5213265033712c
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   skip: true  # [py<38]
 
@@ -40,6 +40,7 @@ requirements:
 {% set ignore_tests = ignore_tests + " --ignore=tests/test_workspaces_api.py" %}
 # E   ModuleNotFoundError: No module named 'requests_mock'
 {% set ignore_tests = ignore_tests + " --ignore=tests/test_listings_api.py" %}
+
 test:
   source_files:
     - tests
