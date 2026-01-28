@@ -48,11 +48,11 @@ test:
     - jupyterlab_server
   commands:
     - pip check
-    - pytest -v tests {{ ignore_tests }}  # [py<314]
+    - pytest -v tests {{ ignore_tests }}
   requires:
     - pip
     - pytest >=7
-    - pytest-jupyter >=0.6.2  # [py<314]
+    - pytest-jupyter >=0.6.2
     - mock
     - strict-rfc3339
   # downstreams:
